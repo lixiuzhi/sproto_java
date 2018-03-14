@@ -6,23 +6,41 @@ import java.util.List;
 
 public class Main {
 
+
+    public static void PrintfBytes(byte[] data)
+    {
+        String s = "";
+        for(byte b:data){
+
+            s+=b+" ";
+        }
+        System.out.println(s);
+    }
+
+
     public static void main(String[] args) {
 
-        TestProtoClass protoObj = new TestProtoClass();
-        protoObj.setName("测试wenbenasdfasdf asdf ");
-        protoObj.setLevel(-999999999);
-        protoObj.setId(2131236);
-        List<Integer> dd  = new ArrayList<>();
-        dd.add(2);
-        dd.add(445);
-        dd.add(-223);
-        dd.add(-2332223);
-        protoObj.setIntArr(dd);
+        TestProtoClass1 b = new TestProtoClass1();
+        b.setA(-32423423);
+        b.setB(true);
+        b.setC(989898989);
+        b.setD(2);
+        List<Long> e = new ArrayList<>();
+        e.add(34l);
+        e.add(-23l);
+        b.setE(e);
+        b.setF("asdfasdfasdfsdffadssdaa阿斯顿发斯蒂芬sdfa");
 
-        TestProtoClass2 protoObj21 = new TestProtoClass2();
-        protoObj21.setName("打算阿道夫啊发顺丰");
+        List<TestProtoClass1> c = new ArrayList<>();
+        c.add(b);
+        c.add(b);
 
-        protoObj.setTestObj(protoObj21);
+        TestProtoClass2 protoObj = new TestProtoClass2();
+        byte[] a = new byte[]{-1,1,2,-3};
+        //PrintfBytes(a);
+        protoObj.setA(a);
+        protoObj.setB(b);
+        protoObj.setC(c);
 
         byte[] data = protoObj.encode();
 
@@ -30,12 +48,15 @@ public class Main {
         data = packer.pack(data,0);
          data = packer.unpack(data,0);
 
-        TestProtoClass protoObj2 = new TestProtoClass(data);
+        TestProtoClass2 protoObj2 = new TestProtoClass2(data);
 
-        System.out.println(protoObj2.getName());
-        System.out.println(protoObj2.getLevel());
-        System.out.println(protoObj2.getId());
-        System.out.println(protoObj2.getIntArr().toString());
-        System.out.println(protoObj2.getTestObj().getName());
+        PrintfBytes(protoObj2.getA());
+        System.out.println(protoObj2.getB().getA());
+        System.out.println(protoObj2.getB().getB());
+        System.out.println(protoObj2.getB().getC());
+        System.out.println(protoObj2.getB().getD());
+        System.out.println(protoObj2.getB().getE().toString());
+        System.out.println(protoObj2.getB().getF());
+        System.out.println(protoObj2.getC().size());
     }
 }
