@@ -27,9 +27,9 @@ message TestProtoClass2{
 
 //枚举测试
 enum Test12 {
-	OK					// 成功
-	ERROR			    //error
-    OTHER			// 其他
+  OK    //成功
+  ERROR //error
+  OTHER //其他
 }
 ```
 导出的java代码参考test目录对应的几个Test类.
