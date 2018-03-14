@@ -4,7 +4,7 @@ import com.lxz.sproto.*;
 import java.util.List;
 
 public class TestProtoClass extends SprotoTypeBase {
-    private static int max_field_count = 4;
+    private static int max_field_count = 5;
 
     public TestProtoClass(){
         super(max_field_count);
@@ -74,6 +74,21 @@ public class TestProtoClass extends SprotoTypeBase {
         _IntArr = v;
     }
 
+    private TestProtoClass2 _TestObj; // tag 4
+
+    public boolean HasTestObj(){
+        return super.has_field.has_field(4);
+    }
+
+    public TestProtoClass2 getTestObj() {
+        return _TestObj;
+    }
+
+    public void setTestObj(TestProtoClass2 v) {
+        super.has_field.set_field(4,true);
+        _TestObj = v;
+    }
+
     protected void decode () {
         int tag = -1;
         while (-1 != (tag = super.deserialize.read_tag ())) {
@@ -92,6 +107,10 @@ public class TestProtoClass extends SprotoTypeBase {
 
                 case 3:
                     this.setIntArr( super.deserialize.read_int32_list());
+                    break;
+
+                case 4:
+                    this.setTestObj( super.deserialize.read_obj(()->new TestProtoClass2()));
                     break;
                 default:
                     super.deserialize.read_unknow_data ();
@@ -119,6 +138,9 @@ public class TestProtoClass extends SprotoTypeBase {
             super.serialize.write_int32(this.getIntArr(), 3);
         }
 
+        if (super.has_field.has_field (4)) {
+            super.serialize.write_obj(this.getTestObj(), 4);
+        }
         return super.serialize.close ();
     }
 }
